@@ -9,6 +9,7 @@ import List from './page/list'
 import Login from './page/login'
 import Mine from './page/mine'
 import Newcomer from './page/newcomer'
+import Reg from './page/reg'
 // import './App.scss'
 
 
@@ -27,6 +28,7 @@ function App(props) {
                 <Route path="/cart" component={Cart} />
                 <Route path="/mine" component={Mine} />
                 <Route path="/login" component={Login} />
+                <Route path="/reg" component={Reg} />
                 <Route path="/notfound" render={() => <div><h1>找不到该页面</h1></div>} />
                 <Redirect from='/' to="/home" exact />
                 <Redirect to="/notfound" />

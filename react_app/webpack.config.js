@@ -32,6 +32,7 @@ module.exports = {
                     }
                 ]
             },
+            {test:/.(png|jpg|gif|svg)$/, use:['url-loader?limit=8192&name=./[name].[ext]']},
             //编译css文件
             {
                 test: /\.css$/,
