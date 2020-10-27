@@ -47,7 +47,7 @@ function Nav(props) {
             activechange(props.props.location.pathname)
     })
     return (
-        <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
+        <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0, zIndex: 1 }}>
             <TabBar
                 unselectedTintColor="#949494"
                 tintColor="#80d13e"

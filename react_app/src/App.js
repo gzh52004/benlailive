@@ -21,6 +21,7 @@ function App(props) {
                 props.location.pathname == '/newcomer' || props.location.pathname == '/cart' || props.location.pathname == '/login' ? null : <Nav props={props} />
             }
             <Switch>
+
                 <Route path="/home" component={Home} />
                 <Route path="/list" component={List} />
                 <Route path="/newcomer" component={Newcomer} />
