@@ -4,6 +4,7 @@ import antdMB ,{ Icon, Checkbox } from 'antd-mobile'
 import {useHistory}  from 'react-router-dom'
 
 import ProductCart from '../../component/cart/product_cart'
+import GoodSelect from '../../component/cart/goodselect'
 
 import '../../assets/public/common.css'
 import './index.scss'
@@ -18,15 +19,18 @@ import './index.scss'
 //      console.log(res.data)
 //  })
 
-const CheckboxItem = Checkbox.CheckboxItem;
+
 
 function Cart() {
+    const history = useHistory();
     const [ischeck,changeCheck] = useState(false)
     
     return (
         <>
        <header> 
-           <Icon type='left' size='lg'></Icon>
+           <Icon type='left' size='lg' onClick={() => {
+               history.goBack(-1)
+           }}></Icon>
            <div className="cart_title">
                <h3>购物车</h3>
                <p>配送至：上海市</p>
@@ -40,6 +44,10 @@ function Cart() {
 
        <div className="white_space"></div>
        <ProductCart></ProductCart>
+
+       <GoodSelect></GoodSelect>
+       <div className="white_space3"></div>
+       
        <footer>
        <div className="allcheck">
        <Checkbox key={ischeck} checked={ischeck} onClick={()=> {
