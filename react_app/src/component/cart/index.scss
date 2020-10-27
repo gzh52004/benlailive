@@ -1,0 +1,82 @@
+@import '../../assets/public/vw.scss';
+
+
+.none {
+    width: 100%;
+    height: vw(520);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+        width: vw(630.4);
+        height: vw(40);
+        text-align: center;
+        padding: vw(316) vw(60) 0;
+        font-size: vw(28);
+        font-family: 黑体;
+
+        background: url(https://image.benlailife.com/static/images/cart/nosku_14e9dd0f.png) center top no-repeat #fff;
+        background-size: vw(300);
+    }
+
+    a {
+        display: block;
+        width: vw(260);
+        height: vw(80);
+        border: 1px solid #add13e;
+        color: #add13e;
+        font-family: 黑体;
+        font-size: vw(28);
+        text-align: center;
+        line-height: vw(80);
+        border-radius: vw(8);
+        margin: vw(30) 0 vw(50) vw(0);
+    }
+}
+
+.have {
+    display: flex;
+    background-color: #fff;
+
+    .tit {
+        display: flex;
+        width: vw(710.4);
+        height: vw(88);
+        margin: 0 auto;
+        justify-content: space-between;
+
+        label {
+            text-align: center;
+
+            display: flex;
+            align-items: center;
+
+            b {
+                padding-left: vw(20);
+                font-weight: 900;
+                font-family: 黑体;
+            }
+
+        }
+
+        p {
+            font-size: vw(24);
+            font-family: 黑体;
+            display: flex;
+            align-items: center;
+            padding-left: vw(46);
+            background: url(//image.benlailife.com/static/images/cart/cart_ico2018_5626a3d0.png) 0 vw(-136) no-repeat;
+            ;
+            ;
+            background-size: vw(40);
+
+            a {
+                color: #ff6900;
+                margin-left: vw(20);
+            }
+        }
+
+    }
+}
