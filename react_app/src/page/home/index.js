@@ -1,12 +1,12 @@
 
 import React, { useState } from 'react'
-import { NavLink, Route } from 'react-router-dom'
+import { NavLink, Route, Redirect } from 'react-router-dom'
 
 
 import './home.scss'
 import Homemain from './homeMain'
 const memu = [
-    { id: '5f966c424df73a2010257ee5', title: '推荐', },
+    // { id: '5f966c424df73a2010257ee5', title: '推荐', },
     { id: '5f95340fff761e23c8a2a92f', title: '水果', },
     { id: '5f953467bceb3b39304c7e48', title: '蔬菜', },
     { id: '5f9534c6a4f30e0908d9df21', title: '肉禽', },
@@ -62,6 +62,7 @@ function Home() {
                             <img src="https://image2.benlailife.com/AppHomePageImage/fb7cbdaf84444a5d9998786bd9622e4f_n-n.jpg" alt="" className="ad__img" /></a>
                         </li> */}
                 <Route to="/home/main/:id" component={Homemain} />
+                <Redirect from='/home' to="/home/main/5f95340fff761e23c8a2a92f" exact />
             </section>
 
         </div>

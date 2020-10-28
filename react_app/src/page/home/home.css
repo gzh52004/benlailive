@@ -1,34 +1,4 @@
 @charset "UTF-8";
-@media all and (min-width: 200px) and (max-width: 350px) {
-  html {
-    font-size: 42.66px;
-  }
-}
-
-@media screen and (min-width: 351px) and (max-width: 400px) {
-  html {
-    font-size: 50px;
-  }
-}
-
-@media screen and (min-width: 401px) and (max-width: 700px) {
-  html {
-    font-size: 55.24px;
-  }
-}
-
-@media screen and (min-width: 701px) and (max-width: 1000px) {
-  html {
-    font-size: 102.39px;
-  }
-}
-
-@media screen and (min-width: 1001px) and (max-width: 1024px) {
-  html {
-    font-size: 136.52px;
-  }
-}
-
 .home .container {
   background-color: #fff;
   display: flex;
