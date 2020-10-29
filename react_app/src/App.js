@@ -9,7 +9,7 @@ import List from './page/list'
 import Login from './page/login'
 import Mine from './page/mine'
 import Newcomer from './page/newcomer'
-// import './App.scss'
+import './App.scss'
 
 
 function App(props) {

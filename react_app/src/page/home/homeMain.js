@@ -20,14 +20,16 @@ function Homemain(props) {
 
             })
             // console.log('Homemain', msg.list[0].data);
-            const banner = msg.list[0].data[0];
-            changeDatabanner(banner)
-            const maps = msg.list[0].data.filter((item, index) => index < 5 && index > 2)
-            changeDatamap(maps)
-            const lists = msg.list[0].data.filter((item, index) => index < 3 && index > 0)
-            changeDatalist(lists)
-            const carts = msg.list[0].data.filter((item, index) => index > 4)
-            changeDatacart(carts)
+            if (msg.list) {
+                const banner = msg.list[0].data[0];
+                changeDatabanner(banner)
+                const maps = msg.list[0].data.filter((item, index) => index < 5 && index > 2)
+                changeDatamap(maps)
+                const lists = msg.list[0].data.filter((item, index) => index < 3 && index > 0)
+                changeDatalist(lists)
+                const carts = msg.list[0].data.filter((item, index) => index > 4)
+                changeDatacart(carts)
+            }
         })()
 
         return function () {
