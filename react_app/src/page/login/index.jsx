@@ -126,7 +126,7 @@ function Login(props) {
                 <li>
             <p style={{display:dis4}} className="ul1-li3-p">{dis5}</p>
                     <Button type="primary" onClick={checkInput} className={buttonState()}>登录</Button>
-                </li>
+                    </li>
                 <li className="ul1-li4"><NavLink className="ul1-li4-a2" to="/reg">注册账号</NavLink></li>
             </ul>
             </div>
