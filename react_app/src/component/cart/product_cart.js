@@ -34,19 +34,24 @@ function ProductCart () {
     const del_pro = useCallback((item) => {
         dispatch({type:"remove_from_cart",item})
     })
-    
+    const controlAll = useCallback(() =>{
+        dispatch({type:"checkAll"})
+    })
     return (
        <div>
-           { state.cold_product.length || state.hot_product.length ?  <div className="have">
+           { state.cold_product.length || state.hot_product.length ?  (state.cold_product.length ?<div className="have">
                 <div className="tit">
-                
-    <p>还差{state.postPrice_cold.toFixed(2)}元包邮<a>去凑单</a></p>
+               <div><Checkbox></Checkbox>冷链配</div>
+    {state.postPrice_cold > 0 ? <p>还差{state.postPrice_cold ? state.postPrice_cold.toFixed(2): 99.00}元包邮<a>去凑单</a></p> : <p>已包邮</p>}
                 </div>
                 <ul className='card'>
                     {
                         state.cold_product.map((item) => 
                         <li key={item._id}>
-                    <Checkbox checked={item.ischeck} onClick={select.bind(null,item)}></Checkbox>
+                    <Checkbox checked={item.ischeck} onClick={() => {
+                        select(item),
+                        controlAll();
+                    }}></Checkbox>
                     <div className="product_inf">
                         <img src={item.imageUrl}/>    
                         <div className="inf">
@@ -76,7 +81,50 @@ function ProductCart () {
                     }
                 </ul>
                 <div className="white_space2"></div>
-            </div> : <div className="none">
+            </div> : null  
+            (state.hot_product.length ? <div className="have">
+                <div className="tit">
+               <div><Checkbox></Checkbox>常温配</div>
+    {state.postPrice_hot > 0 ? <p>还差{state.postPrice_hot ? state.postPrice_hot.toFixed(2): 99.00}元包邮<a>去凑单</a></p> : <p>已包邮</p>}
+                </div>
+                <ul className='card'>
+                    {
+                        state.hot_product.length.map((item) => 
+                        <li key={item._id}>
+                    <Checkbox checked={item.ischeck} onClick={() => {
+                        select(item),
+                        controlAll();
+                    }}></Checkbox>
+                    <div className="product_inf">
+                        <img src={item.imageUrl}/>    
+                        <div className="inf">
+                            <h3>{item.productName}</h3>
+                            <div className="price">
+                                <p>￥<span>{item.price.price}</span></p>
+                                <div className="quantity"><a className="jian" onClick={
+                                    jian.bind(null,item)
+                                }>-</a><input value={item.num}
+                                onChange={(e) => {
+                                   let result = e.target.value
+                                   changenum(item,result)
+                                }}
+                                onBlur={ item.num == false ?  () =>
+                                    alert("",'确定要删除该商品吗', [
+                                      { text: '取消', onPress: () => {changenum(item,1)} },
+                                      { text: '确定', onPress: () => {del_pro(item)} },
+                                    ]) : null 
+                                  }
+                                /><a className="jia" onClick={
+                                    jia.bind(null,item)
+                                    }>+</a></div>
+                            </div>
+                        </div>        
+                    </div>
+                    </li>)
+                    }
+                </ul>
+                <div className="white_space2"></div>
+            </div> : null) ) : <div className="none">
                 <p className="title">购物车里还没有好吃的，您可以</p>
                 <a onClick={()=> {
                     history.push('/home')

@@ -18,9 +18,10 @@ const List = lazy(() => import('./page/list'))
 const Login = lazy(() => import('./page/login'))
 const Mine = lazy(() => import('./page/mine'))
 const Newcomer = lazy(() => import('./page/newcomer'))
+const productInf = lazy(() => import('./page/productInf'))
 function App(props) {
 
-    console.log('Appprops', props);
+    // console.log('Appprops', props);
     return (
         <div>
             {
@@ -28,6 +29,7 @@ function App(props) {
             }
             <Suspense fallback={<div>loading...</div>}>
                 <Switch>
+                    <Route path="/productInf/:_id" component={productInf} />
                     <Route path="/home" component={Home} />
                     <Route path="/list" component={List} />
                     <Route path="/newcomer" component={Newcomer} />
