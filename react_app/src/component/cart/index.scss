@@ -1,0 +1,306 @@
+@import '../../assets/public/vw.scss';
+
+
+.white_space2 {
+    height: vw(40);
+    width: 100%;
+}
+
+.white_space3 {
+    height: vw(102);
+    width: 100%;
+}
+
+.none {
+    width: 100%;
+    height: vw(520);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+        width: vw(630.4);
+        height: vw(40);
+        text-align: center;
+        padding: vw(316) vw(60) 0;
+        font-size: vw(28);
+        font-family: 黑体;
+
+        background: url(https://image.benlailife.com/static/images/cart/nosku_14e9dd0f.png) center top no-repeat #fff;
+        background-size: vw(300);
+    }
+
+    a {
+        display: block;
+        width: vw(260);
+        height: vw(80);
+        border: 1px solid #add13e;
+        color: #add13e;
+        font-family: 黑体;
+        font-size: vw(28);
+        text-align: center;
+        line-height: vw(80);
+        border-radius: vw(8);
+        margin: vw(30) 0 vw(50) vw(0);
+    }
+}
+
+.have {
+    display: flex;
+    background-color: #fff;
+    flex-direction: column;
+
+    .tit {
+        display: flex;
+        width: vw(710.4);
+        height: vw(88);
+        margin: 0 auto;
+        justify-content: space-between;
+        align-items: center;
+
+
+        label {
+            height: vw(42);
+            line-height: vw(42);
+            margin-right: vw(12);
+
+        }
+
+        p {
+            font-size: vw(24);
+            font-family: 黑体;
+            display: flex;
+            align-items: center;
+            padding-left: vw(46);
+            background: url(//image.benlailife.com/static/images/cart/cart_ico2018_5626a3d0.png) 0 vw(-136) no-repeat;
+            ;
+            ;
+            background-size: vw(40);
+
+            a {
+                color: #ff6900;
+                margin-left: vw(20);
+            }
+        }
+
+    }
+
+    .card {
+        display: flex;
+        width: vw(710.4);
+        box-shadow: 0 0.02rem 0.1rem 0 rgba(0, 0, 0, .07);
+        overflow: hidden;
+        margin: 0 auto;
+        background-color: #fff;
+        flex-direction: column;
+
+        li {
+            width: 100%;
+            height: vw(220);
+            display: flex;
+
+            label {
+                display: flex;
+                height: vw(220);
+                width: vw(80);
+                justify-content: center;
+                align-items: center;
+            }
+
+            .product_inf {
+                width: 100%;
+                height: vw(188);
+                width: vw(630);
+                padding: vw(20) 0 vw(12);
+                display: flex;
+
+                img {
+                    width: vw(180);
+                    height: vw(180);
+                }
+
+                .inf {
+                    height: vw(188);
+                    width: vw(458);
+                    display: flex;
+                    margin-left: vw(20);
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    h3 {
+                        font-size: vw(28);
+                        font-family: 黑体;
+                        font-weight: 700;
+                        width: vw(410);
+                        line-clamp: 2;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-height: vw(80);
+                        white-space: normal;
+                        line-height: vw(40);
+                    }
+
+                    .price {
+                        font-family: Arial;
+                        display: flex;
+                        justify-content: space-between;
+                        width: vw(410);
+                        margin-bottom: vw(10);
+
+                        p {
+                            font-size: vw(24);
+                            color: #ff6900;
+
+                            span {
+                                font-size: vw(36);
+                                font-family: 黑体;
+                                height: vw(52);
+                                display: inline-block;
+                                line-height: vw(52);
+                            }
+                        }
+
+                        .quantity {
+                            height: vw(48);
+                            width: vw(156);
+                            display: flex;
+                            border: 1px solid #ddd;
+
+                            a {
+                                width: vw(48);
+                                height: vw(48);
+                                line-height: vw(48);
+                                text-align: center;
+                                display: block;
+                            }
+
+                            input {
+                                text-align: center;
+                                width: vw(56);
+                                height: vw(48);
+                                border: none;
+                                border-left: 1px solid #ddd;
+                                border-right: 1px solid #ddd;
+                                // box-sizing: content-box;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.good_Select {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+    .good_img {
+        width: 100%;
+        height: vw(112);
+    }
+
+    .product_list {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .product {
+            width: vw(370);
+            height: vw(610);
+            background-color: #fff;
+            position: relative;
+            margin-bottom: vw(10);
+
+            .joinCart {
+                background: url(//image.benlailife.com/static/images/cart_ico_98b06cd1.png) center 0 no-repeat;
+                display: block;
+                position: absolute;
+                width: vw(56);
+                height: vw(56);
+                z-index: 20;
+                background-size: vw(56);
+                top: vw(540);
+                left: vw(292);
+            }
+
+            .main {
+                width: vw(370);
+                height: vw(610);
+                position: relative;
+
+
+
+                dt {
+                    img {
+                        width: vw(370);
+                        height: vw(370);
+                    }
+                }
+
+                dd {
+                    width: vw(330);
+                    height: vw(230);
+                    padding: vw(10) vw(20) 0 vw(20);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .name {
+                        width: 100%;
+                        max-height: vw(104);
+
+                        p:nth-of-type(1) {
+                            max-height: vw(64);
+                            line-height: vw(32);
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            font-size: vw(28);
+                            font-family: 黑体;
+                            white-space: normal;
+
+                        }
+
+                        p:nth-of-type(2) {
+                            max-height: vw(40);
+                            overflow: hidden;
+                            font-size: vw(24);
+                            line-height: vw(40);
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            color: #999;
+                        }
+
+
+                    }
+
+                    .price {
+                        display: flex;
+                        height: vw(72);
+                        color: #ff6900;
+                        font-size: vw(24);
+                        line-height: vw(68);
+
+
+                        span {
+                            font-family: 黑体;
+                            font-weight: 700;
+                            font-size: vw(36);
+                            position: relative;
+                        }
+
+                        b {
+                            color: #999;
+                            text-decoration: line-through;
+                            margin-left: vw(5);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

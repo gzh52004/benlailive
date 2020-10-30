@@ -1,14 +1,32 @@
 
-import React from 'react'
-import Carousel from '../../component/Carousel'
+import React, { useState } from 'react'
+import { NavLink, Route, Redirect } from 'react-router-dom'
+
+
 import './home.scss'
-function Home() {
+import Homemain from './homeMain'
+const memu = [
+    // { id: '5f966c424df73a2010257ee5', title: '推荐', },
+    { id: '5f95340fff761e23c8a2a92f', title: '水果', },
+    { id: '5f953467bceb3b39304c7e48', title: '蔬菜', },
+    { id: '5f9534c6a4f30e0908d9df21', title: '肉禽', },
+    { id: '5f9534f6e181b6041436ff0c', title: '水产', },
+    { id: '5f95359745425c0cf870720c', title: '粮油', },
+    { id: '5f9535eb6586091148e3ea43', title: '熟食', },
+    { id: '5f9536715919801b88a11c2b', title: '乳品', },
+    { id: '5f95362cd68519478498cb56', title: '零食', },
+    { id: '5f9536aa6899df20dcd6833e', title: '酒饮', },
+    { id: '5f9536ff3d483f20a43d6348', title: '厨具', },
+]
+function Home(props) {
+
+
     return (
         <div className='home'>
-
+            
             <section className="container">
-                <div>
-                    <div className="index-top">
+                <div >
+                    <div className="index-top" style={{ position: "fixed", top: 0 }}>
                         <a href="#" className="index-top__city" style={{ opacity: 1 }}>上海</a>
                         <div className="index-top__input">
                             <a href="#" className="index-top__clear">
@@ -23,49 +41,33 @@ function Home() {
                     </div>
 
                 </div>
-                <ul className="main-nav">
+                <ul className="main-nav" style={{ position: "fixed", top: '0.88rem', background: "#fff", zIndex: 2 }}>
                     <div className="main-nav__item">
-                        <li className="main-nav__item">
-                            <a href="/app/main/162" className="main-nav__link main-nav__link--current">推荐</a>
-                        </li>
-                        <li className="main-nav__item">
-                            <a href="/app/main/160" className="main-nav__link">水果</a>
-                        </li>
-                        <li className="main-nav__item"><a href="/app/main/154" className="main-nav__link">蔬菜</a>
-                        </li>
-                        <li className="main-nav__item"><a href="/app/main/150" className="main-nav__link">肉禽</a>
-                        </li>
-                        <li className="main-nav__item"><a href="/app/main/158" className="main-nav__link">水产 </a></li><li className="main-nav__item"><a href="/app/main/146" className="main-nav__link"> 粮油
-      </a></li><li className="main-nav__item"><a href="/app/main/156" className="main-nav__link">
-                            熟食
-      </a></li><li className="main-nav__item"><a href="/app/main/152" className="main-nav__link">
-                            乳品
-      </a></li><li className="main-nav__item"><a href="/app/main/148" className="main-nav__link">
-                            零食
-      </a></li><li className="main-nav__item"><a href="/app/main/144" className="main-nav__link">
-                            酒饮
-      </a></li><li className="main-nav__item"><a href="/app/main/142" className="main-nav__link">
-                            厨具
-      </a></li></div></ul>
-                <div className="main__body">
-                    <div className="main__wrapper">
-                        <ul className="main__floors">
-                            <Carousel />
-                            <li data-type="1" className="main__floor">
-
-                            </li>
-                            <li data-type="18" className="main__floor">
-                                <a href="#" url-type="6" className="ad floor-18__ad">
-                                    <img src="https://image.benlailife.com/AppHomePageImage/8575d2327e604a9e9b23d7d850febd23_n-n.jpg" alt="" className="ad__img" />
-                                </a>
-                            </li>
-                            <li data-type="3" className="main__floor"><a href="#" url-type="6" className="ad floor-3__ad">
-                                <img src="https://image2.benlailife.com/AppHomePageImage/fb7cbdaf84444a5d9998786bd9622e4f_n-n.jpg" alt="" className="ad__img" /></a>
-                            </li>
-                        </ul>
+                        {
+                            memu.map(item => <li className="main-nav__item" key={item.id}>
+                                <NavLink to={`/home/main/${item.id}`} activeClassName='main-nav__link--current'
+                                    className="main-nav__link">{item.title}</NavLink>
+                            </li>)
+                        }
                     </div>
-                </div>
+                </ul>
+                {/* <li data-type="1" className="main__floor">
+
+                        </li>
+                        <li data-type="18" className="main__floor">
+                            <a href="#" url-type="6" className="ad floor-18__ad">
+                                <img src="https://image.benlailife.com/AppHomePageImage/8575d2327e604a9e9b23d7d850febd23_n-n.jpg" alt="" className="ad__img" />
+                            </a>
+                        </li>
+                        <li data-type="3" className="main__floor"><a href="#" url-type="6" className="ad floor-3__ad">
+                            <img src="https://image2.benlailife.com/AppHomePageImage/fb7cbdaf84444a5d9998786bd9622e4f_n-n.jpg" alt="" className="ad__img" /></a>
+                        </li> */}
+                {/* <Suspense fallback={<div>loading...</div>}> */}
+                <Route to="/home/main/:id" component={Homemain} />
+                <Redirect from='/home' to="/home/main/5f95340fff761e23c8a2a92f" exact />
+                {/* </Suspense> */}
             </section>
+
         </div>
 
     )

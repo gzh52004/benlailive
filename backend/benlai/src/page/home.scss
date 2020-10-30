@@ -1,0 +1,77 @@
+.home {
+    .site-layout-background {
+        // background-color: #fff;
+
+        .title {
+            display: flex;
+
+            input {
+                margin-right: 10px;
+            }
+
+            .right {
+                button {
+                    margin: 0 10px;
+                    line-height: 16px;
+                    background-color: pink;
+                    padding: 10px;
+                    border: 0;
+                    color: #578552;
+                }
+
+            }
+        }
+
+        table {
+            width: 100%;
+            // color: #fff;
+
+
+            thead,
+            tbody {
+                .tr {
+                    border-bottom: 1px #888888 solid;
+                }
+
+                .active {
+                    background: #c9d6df
+                }
+
+                .activetwo {
+                    background-color: #fff;
+                }
+
+                tr {
+
+
+                    td,
+                    th {
+                        flex: 1;
+                        height: 50px;
+                        line-height: 50px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+
+                        button {
+                            margin: 0 10px;
+                            line-height: 16px;
+                            background-color: pink;
+                            padding: 10px;
+                            border: 0;
+                            color: #578552;
+                        }
+                    }
+
+                    display: flex;
+                    justify-content: space-between;
+                    text-align: center;
+                }
+
+                width: 100%;
+
+            }
+
+        }
+    }
+}

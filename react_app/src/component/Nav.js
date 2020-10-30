@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { TabBar } from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css';
 
 
@@ -44,49 +43,25 @@ function Nav(props) {
     const [active, activechange] = useState('/home')//设置高亮
     useEffect(() => {//刷新后高亮不回到初始设置
         if (menu)
-            activechange(props.props.location.pathname)
+            activechange(props.props.location.pathname.substr(0, 5))
+        // console.log('nav=', props.props.location.pathname.substr(0, 5));
     })
     return (
-        <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
-            <TabBar
-                unselectedTintColor="#949494"
-                tintColor="#80d13e"
-                barTintColor="white"
-            >
+        <div className="TabBar">
+            <ul>
                 {
-                    menu.map((item, idx) => <TabBar.Item
-                        title={item.text}
-                        key={item.name}
-                        icon={<div style={{
-                            width: '22px',
-                            height: '22px',
-                            background: `url(${item.icon}) center center /  26px 26px no-repeat`
-                        }}
-                        />
-                        }
-                        selectedIcon={<div style={{
-                            width: '22px',
-                            height: '22px',
-                            background: `url(${item.selectedIcon}) center center /  26px 26px no-repeat`
-                        }}
-                        />
-
-                        }
-                        selected={active == item.path}//设置高亮
-                        onPress={() => {
-                            // console.log(props.props);
-                            // console.log(idx);
+                    menu.map(item => <li key={item.name}
+                        onClick={(e) => {
+                            props.props.history.push(item.path)
                             //对应组件高亮
                             activechange(item.path)
-                            //跳转到对应的组件
-                            props.props.history.push(item.path)
                         }}
-
                     >
-                    </TabBar.Item>)
+                        <img src={active == item.path ? item.selectedIcon : item.icon} />
+                        <span className={active == item.path ? "footer-nav__name footer-nav__name_active" : "footer-nav__name"}>{item.text}</span>
+                    </li>)
                 }
-
-            </TabBar>
+            </ul>
         </div>
     );
 }
