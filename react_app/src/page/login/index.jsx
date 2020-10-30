@@ -1,25 +1,57 @@
 import React,{useState} from 'react'
 import './login.scss'
 import {Button,Icon} from 'antd-mobile';
+import CryptoJS from 'crypto-js';
 import pic1 from './pic1.png'
+import {NavLink} from 'react-router-dom'
+import request from '../../component/request'
 
-function Login() {
-        //点击眼睛明文/密文显示密码
-        const changeType = function(){
-            let aaa =  document.getElementsByClassName("ul1-li2-input")
-            let bbb = document.getElementsByClassName("ul1-li2-a1")
-            let ccc = document.getElementsByClassName("ul1-li2-a1-none")
-            if(aaa[0].type === "password"){
-                aaa[0].setAttribute("type","text")
-                bbb[0].style.display="none"
-                ccc[0].style.display="block"
-            }else{
-                aaa[0].setAttribute("type","password")
-                bbb[0].style.display="block"
-                ccc[0].style.display="none"
-            }
+function Login(props) {
+    const checkInput = async function(){
+        let ddd = document.getElementsByClassName("ul1-li3-p")
+        if(user.username.length != 11){
+            ddd[0].style.display="block"
+            ddd[0].innerHTML="账号格式错误"
+             }else{
+                ddd[0].style.display="none"
+               const {data} = await request.get('/user/checkname?',{
+                    params:{
+                        name:user.username
+                    }
+                })
+                if(data.code === 2000){
+                    user.password = CryptoJS.SHA256(user.passowrd).toString();
+                    console.log(user.password,666)
+                    ddd[0].style.display="none"
+                    const {data} = await request.get('user/login',{
+                        params:{
+                            name:user.username,
+                            pwd:user.password
+                        }
+                    })
+                    if(data.code===2005){
+                        props.history.push({
+                                    pathname: '/home',
+                                    state: { name: user.username }
+                                })
+                                console.log(user.username)
+                                // const pathname = search.match(/targetUrl\=([\w-\]+)/)
+                                localStorage.setItem('currentUser',data.token)
+                                localStorage.setItem('INFO',user.username)
+                                sessionStorage.setItem('currentUser',data.token)
+                                sessionStorage.setItem('INFO',user.username)
+                    }else{
+                        ddd[0].style.display="block"
+                        ddd[0].innerHTML="账号或密码错误"
+                    }
+                    // console.log(data)
+                }
+                }
         }
-
+        //点击眼睛明文/密文显示密码
+        const [type,changeType] = useState("password")
+        const [display1,changeDis1] = useState("block")
+        const [display2,changeDis2] = useState("none")
         //登录按钮是否可以点击
         const [user,changeuse] = useState({username:'',password:''})
         const buttonState = function(){
@@ -28,11 +60,9 @@ function Login() {
                     return result
                 }
         }
-
-
     return (
         <div className="login">
-            <div className="return"><Icon type="left" /></div>
+            <div className="return"><NavLink to="/reg"><Icon type="left" /></NavLink></div>
             <div className="content">
             <img className="pic1" src={pic1} alt=""></img>   
             <ul className="ul1">
@@ -54,7 +84,7 @@ function Login() {
                 <li className="ul1-li2">
                 <p className="icon-suo"></p>
                 <p className="ul1-li2-p">
-                    <input type="password" value={user.password} onChange={
+                    <input type={type} value={user.password} onChange={
                     (e)=>{
                         let value={
                             ...user,
@@ -66,15 +96,23 @@ function Login() {
                 className="ul1-li2-input" placeholder="请输入密码">
                     </input>
                     </p>
-                <a className="ul1-li2-a1" style={{display:"block"}} onClick={changeType}></a>
-                <a className="ul1-li2-a1-none" style={{display:"none"}} onClick={changeType}></a>
+                <a className="ul1-li2-a1" style={{display:display1}} onClick={() => {
+                    changeType("text")
+                    changeDis1("none")
+                    changeDis2("block")
+                }}></a>
+                <a className="ul1-li2-a1-none" style={{display:display2}} onClick={()=>{
+                    changeType("password")
+                    changeDis2("none")
+                    changeDis1("block")
+                }}></a>
                 <a className="ul1-li2-a2" href="">忘记密码</a>
                 </li>
                 <li>
             <p style={{display:"none"}} className="ul1-li3-p">yyy</p>
-                    <Button type="primary" className={buttonState()}>登录</Button>
+                    <Button type="primary" onClick={checkInput} className={buttonState()}>登录</Button>
                 </li>
-                <li className="ul1-li4"><a className="ul1-li4-a2">注册账号</a></li>
+                <li className="ul1-li4"><NavLink className="ul1-li4-a2" to="/reg">注册账号</NavLink></li>
             </ul>
             </div>
         </div>
