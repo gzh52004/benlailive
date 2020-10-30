@@ -1,7 +1,8 @@
 
-import React, { useLayoutEffect, useEffect, useState } from 'react'
+import React, { useLayoutEffect, useEffect, useState, Suspense } from 'react'
 import { Redirect, Route, } from 'react-router-dom'
 import Request from '../../utils/GetHomeCategory'
+import axios from 'axios'
 
 import './list.scss'
 const memu = [
@@ -25,17 +26,29 @@ function List(props) {
     const [id, changeId] = useState(memu[0].id)
     const [data, changeData] = useState({})
     const [currentID, changecurrentID] = useState(memu[0].id)//高亮
+    var CancelToken = axios.CancelToken
+    var cancel
     useEffect(() => {
 
         Request.get('/classify/select', {
+            cancelToken: new CancelToken(function executor(c) {
+                // An executor function receives a cancel function as a parameter
+                cancel = c;
+            }),
             params: {
                 findQuery: { _id: id }
             }
         }).then(res => {
-            console.log(res.data.msg.list[0]);
-            changeData(res.data.msg.list[0])
-        })
+            // console.log(res.data.msg.list[0]);
+            if (res.data.msg.list) {
+                changeData(res.data.msg.list[0])
+            }
 
+        })
+        return function () {
+            cancel('list取消请求');
+
+        }
     }, [id])
     useLayoutEffect(() => {
         // console.log(props.location.pathname.slice(6));
@@ -114,7 +127,9 @@ function List(props) {
 
             </section>
             {/* <Route to="/list/:id" component={List} /> */}
+            {/* <Suspense fallback={<div>loading...</div>}> */}
             <Redirect from='/list' to="/list/5f94598c108e4b4264d0f927" exact />
+            {/* </Suspense> */}
         </div>
     )
 }

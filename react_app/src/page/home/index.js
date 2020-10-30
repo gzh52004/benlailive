@@ -61,8 +61,10 @@ function Home() {
                         <li data-type="3" className="main__floor"><a href="#" url-type="6" className="ad floor-3__ad">
                             <img src="https://image2.benlailife.com/AppHomePageImage/fb7cbdaf84444a5d9998786bd9622e4f_n-n.jpg" alt="" className="ad__img" /></a>
                         </li> */}
+                {/* <Suspense fallback={<div>loading...</div>}> */}
                 <Route to="/home/main/:id" component={Homemain} />
                 <Redirect from='/home' to="/home/main/5f95340fff761e23c8a2a92f" exact />
+                {/* </Suspense> */}
             </section>
 
         </div>

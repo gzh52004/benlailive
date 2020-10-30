@@ -26,7 +26,7 @@ module.exports = {
                         loader: 'babel-loader',
                         options: {
                             presets: ['@babel/preset-react'],//插件集合
-                            plugins: [['@babel/plugin-proposal-decorators', { legacy: true }], ['@babel/plugin-proposal-class-properties', { legacy: true }]
+                            plugins: [['@babel/plugin-proposal-decorators', { legacy: true }], ['@babel/plugin-proposal-class-properties', { legacy: true }, "@babel/plugin-syntax-dynamic-import"]
                             ]
                         }
                     }

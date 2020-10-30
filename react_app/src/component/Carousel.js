@@ -1,5 +1,6 @@
 import { Carousel, WingBlank } from 'antd-mobile';
 import React from 'react'
+let timer = null;
 class carousel extends React.Component {
 
     state = {
@@ -9,7 +10,7 @@ class carousel extends React.Component {
     componentDidMount() {
         // simulate img loading
 
-        setTimeout(() => {
+        timer = setTimeout(() => {
             this.setState({
                 data: ["http://47.115.142.170:60005/uploads/homeImg/1535f4e286d54c73832ad69f326089cb_n-n.jpg", "http://47.115.142.170:60005/uploads/homeImg/1b9c86f60b9b48768c16263b9998bbf8_n-n.jpg"]
             });
@@ -30,6 +31,9 @@ class carousel extends React.Component {
             }, 100);
         }
 
+    }
+    componentWillUnmount() {
+        clearInterval(timer);
     }
     render() {
         // console.log(this.props.databanner.list);

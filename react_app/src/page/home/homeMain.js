@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react'
 import Carousel from '@/component/Carousel'
 import Request from '@/utils/GetHomeCategory'
 import axios from 'axios'
-var source = axios.CancelToken.source()
+
 function Homemain(props) {
     const [databanner, changeDatabanner] = useState([])//轮播图数据
     const [datalist, changeDatalist] = useState([])//页面轮播图下面导航数据
     const [datamap, changeDatamap] = useState([])//模版图数据
     const [datacart, changeDatacart] = useState([])//页面小购物车数据
     const [dataID, changes] = useState(props.location.pathname.slice(11))
+    var source = axios.CancelToken.source()
     useEffect(() => {
+
         (async () => {
             changes(props.location.pathname.slice(11))//获取id
             // console.log('dataID', dataID);
-            let { data: { msg } } = await Request.get('/home/Gethomepage', {
+            let { data: { msg } } = await axios.get('http://47.115.142.170:60005/home/Gethomepage', {
+                cancelToken: source.token,
                 params: {
                     findQuery: { _id: dataID }
                 }
@@ -33,10 +36,11 @@ function Homemain(props) {
         })()
 
         return function () {
-            // source.cancel('组件卸载,取消请求');
-            (state, callback) => {
-                return
-            }
+            source.cancel('组件卸载,取消请求');
+
+            // (state, callback) => {
+            //     return
+            // }
         }
     }, [])
 
