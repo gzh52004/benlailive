@@ -1,14 +1,16 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useCallback,useContext} from 'react'
 import {useHistory}  from 'react-router-dom'
 
-
+import {MyContext} from '../../store/store'
 import request  from '../../utils/request'
 import '../../assets/public/common.css'
 import './index.scss'
 
 
 function GoodSelect() {
+    const {state,dispatch} = useContext(MyContext);
     const [goodList,getGood] = useState([])
+    console.log(state)
     useEffect(() =>{
         (async () => {
             let num =parseInt(( Math.random() * 9)+1)
@@ -22,15 +24,20 @@ function GoodSelect() {
             
          })()
     },[]) ;
+    const add_cart = useCallback((item) => {
+        dispatch({type:"add_to_cart",item})
+    },[state])
     return (
         <div className="good_Select">
-            {console.log(goodList)}
+            
             <img className="good_img" src="https://image8.benlailife.com/bd83f17b-3e00-4f90-a576-a8ff760e3dd9"></img>
             <div className="product_list">
                 {
                     goodList.map((item) => 
                         <dl className="product" key={item._id}>
-                    <span className="joinCart"></span>
+                    <span className="joinCart" onClick={
+                        add_cart.bind(null,item)
+                    }></span>
                     <a className="main">
                         <dt>
                             <img src={item.imageUrl} />

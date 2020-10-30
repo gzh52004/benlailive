@@ -1,11 +1,13 @@
 import request from '../../utils/request'
-import React,{useState,use} from 'react'
+import React,{useState,useContext,useCallback,useEffect} from 'react'
 import antdMB ,{ Icon, Checkbox } from 'antd-mobile'
 import {useHistory}  from 'react-router-dom'
 
 import ProductCart from '../../component/cart/product_cart'
 import GoodSelect from '../../component/cart/goodselect'
 
+
+import {MyContext} from "../../store/store"
 import '../../assets/public/common.css'
 import './index.scss'
 // let findQuery = {
@@ -22,8 +24,14 @@ import './index.scss'
 
 
 function Cart() {
+
+
+    const{state,dispatch} = useContext(MyContext)
     const history = useHistory();
     const [ischeck,changeCheck] = useState(false)
+    useEffect(function() {
+        dispatch({type:'math_price'})
+    },[])
     
     return (
         <>
@@ -58,7 +66,7 @@ function Cart() {
        </div>
        <div className="accounting">
            <div className="allPrice">
-               合计:<span>￥0</span>
+               合计:<span>￥{state.totalPrice}</span>
            </div>
            <a href="###">
                去结算
