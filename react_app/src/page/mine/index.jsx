@@ -25,6 +25,15 @@ function Mine() {
                 </ul>
             </div>
             </div>
+        <div className="content">
+            <div className="order">
+                <div className="order-head">
+                    <p>我的订单</p>
+                    <a href="">查看全部订单&nbsp;&gt;</a>
+                </div>
+
+            </div>
+        </div>
         </div>
     )
 }

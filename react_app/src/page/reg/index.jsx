@@ -7,13 +7,20 @@ import pic1 from './pic1.png'
 import request from '../../component/request'
 
 function Reg(props) {
+    const [dis4,changeType2] = useState("none")
+    const [dis5,changeMsg] = useState("")
     const checkInput = async function(){
-        let ddd = document.getElementsByClassName("ul1-li3-p")
         if(user.username.length != 11){
-            ddd[0].style.display="block"
-            ddd[0].innerHTML="账号格式错误"
+            (function (){
+                changeType2("block")
+            })();
+            (function (){
+                changeMsg("账号格式错误")
+            })()
              }else{
-                ddd[0].style.display="none"
+                (function (){
+                    changeType2("none")
+                })();
                const {data} = await request.get('/user/checkname?',{
                     params:{
                         name:user.username
@@ -21,8 +28,12 @@ function Reg(props) {
                 })
                 console.log(data)
                 if(data.code === 2000){
-                    ddd[0].style.display="block"
-            ddd[0].innerHTML="账号已存在"
+                    (function(){
+                        changeType2("block")
+                    })();
+                    (function(){
+                        changeMsg("账号已存在")
+                    })()
                 }else if(data.code===0){
                     user.password = CryptoJS.SHA256(user.passowrd).toString();
                     request.post('user/reg?',{
@@ -98,7 +109,7 @@ function Reg(props) {
                 }}></a>
                 </li>
                 <li>
-                <p style={{display:"none"}} className="ul1-li3-p"></p>
+            <p style={{display:dis4}} className="ul1-li3-p">{dis5}</p>
                     <Button className={buttonState()} onClick={checkInput} type="primary">注册</Button></li>
                 <li className="ul1-li4">
                    <NavLink className="ul1-li4-a2"to="/login">登录账号</NavLink>

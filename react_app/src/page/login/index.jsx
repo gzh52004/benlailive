@@ -7,13 +7,21 @@ import {NavLink} from 'react-router-dom'
 import request from '../../component/request'
 
 function Login(props) {
+    const [dis4,changeType2] = useState("none")
+    const [dis5,changeMsg] = useState("")
     const checkInput = async function(){
-        let ddd = document.getElementsByClassName("ul1-li3-p")
         if(user.username.length != 11){
-            ddd[0].style.display="block"
-            ddd[0].innerHTML="账号格式错误"
+            (function (){
+                changeType2("block")
+            })();
+            (function (){
+                changeMsg("账号格式错误")
+            })()
+            
              }else{
-                ddd[0].style.display="none"
+                (function (){
+                    changeType2("none")
+                })();
                const {data} = await request.get('/user/checkname?',{
                     params:{
                         name:user.username
@@ -21,14 +29,17 @@ function Login(props) {
                 })
                 if(data.code === 2000){
                     user.password = CryptoJS.SHA256(user.passowrd).toString();
-                    console.log(user.password,666)
-                    ddd[0].style.display="none"
+                    // console.log(user.password,666)
+                    (function (){
+                        changeType2("none")
+                    })()
                     const {data} = await request.get('user/login',{
                         params:{
                             name:user.username,
                             pwd:user.password
                         }
                     })
+                    console.log(data,"嘤嘤嘤")
                     if(data.code===2005){
                         props.history.push({
                                     pathname: '/home',
@@ -40,11 +51,15 @@ function Login(props) {
                                 localStorage.setItem('INFO',user.username)
                                 sessionStorage.setItem('currentUser',data.token)
                                 sessionStorage.setItem('INFO',user.username)
-                    }else{
-                        ddd[0].style.display="block"
-                        ddd[0].innerHTML="账号或密码错误"
                     }
                     // console.log(data)
+                }else{
+                    (function (){
+                        changeType2("block")
+                    })();
+                    (function (){
+                        changeMsg("账号或密码错误")
+                    })()
                 }
                 }
         }
@@ -109,7 +124,7 @@ function Login(props) {
                 <a className="ul1-li2-a2" href="">忘记密码</a>
                 </li>
                 <li>
-            <p style={{display:"none"}} className="ul1-li3-p">yyy</p>
+            <p style={{display:dis4}} className="ul1-li3-p">{dis5}</p>
                     <Button type="primary" onClick={checkInput} className={buttonState()}>登录</Button>
                 </li>
                 <li className="ul1-li4"><NavLink className="ul1-li4-a2" to="/reg">注册账号</NavLink></li>

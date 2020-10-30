@@ -2,6 +2,10 @@
   
     @return ($n * 100 / 750) + vw;
   }
+  p{
+      padding: 0;
+      margin: 0;
+  }
 .head{
     height: vw(384);
     position: relative;
@@ -19,13 +23,12 @@
     .head-user{
        
         width: vw(740.4);
-        height: vw(384);
+        height: vw(296);
         padding-top: vw(88);
-        background-color: red;
         padding-left:vw(5);
         padding-right:vw(5);
         .head-ol1{ 
-            margin-top:0;
+            margin-top:vw(0);
             float: left;
             width: vw(730.4);
             height: vw(136);
@@ -58,18 +61,16 @@
     box-sizing: border-box;
     height: vw(134);
     .head-ol1-a2-p{
-        margin: 0;
+        margin-top: vw(10);
         float: left;
         color:white;
         font-size:vw(32);
-        font-weight: bold;
-
+        font-weight: bolder;
     }
     }
             }
         .head-ul1{
             width: 100%;
-            height: vw(160);
             text-align: center;
             background-color: yellow;
             margin-top:vw(176);
@@ -86,33 +87,59 @@
             .head-ul1-li1{
                 align-items: flex-start;
                 flex-direction: column;
-                margin:vw(-20) vw(5);
+                margin:vw(-40) vw(5);
                 padding:vw(20) 0 vw(20) vw(20) ;
                 float: left;
                 width: vw(335.2);
-                height: vw(160);
+                height: vw(120);
                 background-color: white;
                 border-radius:vw(8);
                 display: flex;
                 position: relative;
-
+                box-shadow: 0 vw(8) vw(8) 0 rgba(138,198,0,.1)
             }
             .head-ul1-li2{
                 align-items: flex-start;
                 flex-direction: column;
                 display: block;
                 border-radius:vw(8);
-                margin:vw(-20) vw(5);
+                margin:vw(-40) vw(5);
                 padding:vw(20) 0 vw(20) vw(20);
                 float: right;
                 width: vw(335.2);
-                height: vw(160);
+                height: vw(120);
                 background-color: white;
                 display: flex;
                 flex-direction: column;
                 position: relative;
+                box-shadow: 0 vw(8) vw(8) 0 rgba(138,198,0,.1)
             }
         } 
         }
     }
 
+.content{
+    padding:vw(20) vw(20) 0 vw(20);
+    .order{
+        .order-head{
+            p{
+                float: left;
+                font-size:vw(32) ;
+                color: #000;
+                padding:vw(20) 0;
+                line-height: vw(44);
+                padding-left: vw(20);
+                font-weight: bold;
+            }
+            a{
+                float: right;
+                color:#999;
+                font-size:vw(26);
+                line-height: vw(44);
+                padding-top:vw(20);
+                padding-right:vw(10)
+            }
+        }
+    }
+
+}
