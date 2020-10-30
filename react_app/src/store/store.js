@@ -9,7 +9,8 @@ const initState = {
     cold_product:getItem(key2) || [],
     totalPrice:0,
     postPrice_hot:99.00,
-    postPrice_cold:99.00
+    postPrice_cold:99.00,
+    allcheck:false
 }
 
 
@@ -186,7 +187,7 @@ const reducer = function(state,action) {
             if(state.hot_product.length) {
                  state.hot_product.forEach(item => {
                     if(item.ischeck) {
-                        price1 = price1 + item.num * Number(item.price.price)
+                        price2 = price2 + item.num * Number(item.price.price)
                     }
                 })
                 price2=price2.toFixed(1)
@@ -207,24 +208,38 @@ const reducer = function(state,action) {
             setItem(key1,state.hot_product)
             setItem(key2,state.cold_product)
             return state
-        // {type:'clear_cart'}
-        case 'clear_cart':
+
+        case 'checkAll':
+            let cold = true;
+            let hot = true;
+            if(state.cold_product.length) {
+                cold = state.cold_product.every(item => item.ischeck == true)
+            }
+            if(state.hot_product.length) {
+                hot = state.hot_product.every(item => item.ischeck == true)
+            }
+            return {
+                ...state,
+                allcheck:cold && hot
+            }
+            return
+        // {type:'change_qty',id,qty}
+        case 'del_product':
+            state = {
+                ...state,
+                cold_product:state.cold_product.filter(item=> item.ischeck != true),
+                hot_product:state.hot_product.filter(item=> item.ischeck != true),
+            }
+            setItem(key2,state.cold_product)
+            setItem(key1,state.hot_product)
+            return state
+        case 'allSelect':
+            state.cold_product.forEach(item => item.ischeck = action.allcheck)
+            state.cold_product.forEach(item=> {item.ischeck = action.allcheck})
             
             return {
                 ...state,
-                goodslist: []
-            }
-        // {type:'change_qty',id,qty}
-        case 'change_qty':
-            const goodslist = state.goodslist.map(item => {
-                if (item.id === action.id) {
-                    item.qty = action.qty
-                }
-                return item;
-            })
-            return {
-                ...state,
-                goodslist
+                allcheck:action.allcheck
             }
         default:
             throw new Error('error');

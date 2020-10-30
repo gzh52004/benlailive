@@ -1,6 +1,6 @@
 import request from '../../utils/request'
 import React,{useState,useContext,useCallback,useEffect} from 'react'
-import antdMB ,{ Icon, Checkbox } from 'antd-mobile'
+import antdMB ,{ Icon, Checkbox ,Modal} from 'antd-mobile'
 import {useHistory}  from 'react-router-dom'
 
 import ProductCart from '../../component/cart/product_cart'
@@ -10,29 +10,25 @@ import GoodSelect from '../../component/cart/goodselect'
 import {MyContext} from "../../store/store"
 import '../../assets/public/common.css'
 import './index.scss'
-// let findQuery = {
-//     _id:'5f953467bceb3b39304c7e48'
-// }
 
 
-//  request.get("/home/Gethomepage",{params:{
-//      findQuery
-//  }}).then(res => {
-//      console.log(res.data)
-//  })
-
-
-
+const alert = Modal.alert;
 function Cart() {
 
 
     const{state,dispatch} = useContext(MyContext)
     const history = useHistory();
-    const [ischeck,changeCheck] = useState(false)
+    
+    const [isDel,changeDel] = useState(false)
     useEffect(function() {
         dispatch({type:'math_price'})
     },[])
-    
+    const checked = useCallback((allcheck)=>{
+        dispatch({type:"allSelect",allcheck})
+    })
+    const sure_Del = useCallback(() => {
+        dispatch({type:"del_product"})
+    })
     return (
         <>
        <header> 
@@ -40,12 +36,16 @@ function Cart() {
                history.goBack(-1)
            }}></Icon>
            <div className="cart_title">
-               <h3>购物车</h3>
+               <h3>购物车</h3>  
                <p>配送至：上海市</p>
            </div>
        
         <div className="edit">
-        <p>编辑</p>
+        <p onClick={() => {
+            changeDel(!isDel)
+            let allcheck = false
+            checked(allcheck);
+        }}>{isDel ? "完成":"编辑"}</p>
         <Icon type='ellipsis' size='md'></Icon>
         </div>
        </header>
@@ -53,24 +53,35 @@ function Cart() {
        <div className="white_space"></div>
        <ProductCart></ProductCart>
 
-       <GoodSelect></GoodSelect>
+       <GoodSelect del={!isDel}></GoodSelect>
        <div className="white_space3"></div>
        
        <footer>
        <div className="allcheck">
-       <Checkbox key={ischeck} checked={ischeck} onClick={()=> {
-           changeCheck(!ischeck);
+       <Checkbox key={state.allcheck} checked={state.allcheck} onClick={()=> {
+        
+
+           checked(!state.allcheck)
        }}>
        </Checkbox>
        <span>全选</span>
        </div>
        <div className="accounting">
-           <div className="allPrice">
+           { isDel ? null : <div className="allPrice">
                合计:<span>￥{state.totalPrice}</span>
-           </div>
-           <a href="###">
+           </div>}
+           {isDel ? <a  onClick={() =>
+                                    alert("",'确定要删除该商品吗', [
+                                      { text: '取消', onPress: () => {} },
+                                      { text: '确定', onPress: () => {
+                                         
+                                          sure_Del();
+                                          let allcheck = false
+                                          checked(false);
+                                        } },
+                                    ])}>删除</a>:<a >
                去结算
-           </a>
+           </a>}
        </div>
        </footer>
        </>

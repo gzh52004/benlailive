@@ -9,19 +9,20 @@ import List from './page/list'
 import Login from './page/login'
 import Mine from './page/mine'
 import Newcomer from './page/newcomer'
+import productInf from  './page/productInf'
 import './App.scss'
 
 
 function App(props) {
 
-    console.log('Appprops', props);
+    // console.log('Appprops', props);
     return (
         <div>
             {
                 props.location.pathname == '/newcomer' || props.location.pathname == '/cart' || props.location.pathname == '/login' ? null : <Nav props={props} />
             }
             <Switch>
-
+                <Route path="/productInf/:_id" component={productInf} />
                 <Route path="/home" component={Home} />
                 <Route path="/list" component={List} />
                 <Route path="/newcomer" component={Newcomer} />

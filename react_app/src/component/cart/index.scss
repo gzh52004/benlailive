@@ -56,9 +56,16 @@
         width: vw(710.4);
         height: vw(88);
         margin: 0 auto;
-        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
 
 
+        label {
+            height: vw(42);
+            line-height: vw(42);
+            margin-right: vw(12);
+
+        }
 
         p {
             font-size: vw(24);

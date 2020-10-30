@@ -21,6 +21,7 @@ header {
     display: flex;
     align-items: center;
     font-family: 黑体;
+    z-index: 20;
 
     // justify-content: space-evenly;
     svg {
@@ -89,7 +90,7 @@ footer {
     position: fixed;
     bottom: 0;
     display: flex;
-
+    z-index: 20;
     justify-content: space-between;
 
     .allcheck {

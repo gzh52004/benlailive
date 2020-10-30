@@ -7,18 +7,19 @@ import '../../assets/public/common.css'
 import './index.scss'
 
 
-function GoodSelect() {
+function GoodSelect(props) {
+    
     const {state,dispatch} = useContext(MyContext);
     const [goodList,getGood] = useState([])
-    console.log(state)
+    const history = useHistory()
     useEffect(() =>{
         (async () => {
-            let num =parseInt(( Math.random() * 9)+1)
+            let num =parseInt(( Math.random() * 15)+1)
             let result =  await request.get("/good/selectGood",{params:{
                 page:num,
                  pageSize:20
              }})
-            //  console.log(result.data.msg.list)
+            // 
             
              getGood(result.data.msg.list)
             
@@ -28,7 +29,8 @@ function GoodSelect() {
         dispatch({type:"add_to_cart",item})
     },[state])
     return (
-        <div className="good_Select">
+        
+        <div className="good_Select" style={props.del ? null :{ display:"none"}}>
             
             <img className="good_img" src="https://image8.benlailife.com/bd83f17b-3e00-4f90-a576-a8ff760e3dd9"></img>
             <div className="product_list">
@@ -38,7 +40,11 @@ function GoodSelect() {
                     <span className="joinCart" onClick={
                         add_cart.bind(null,item)
                     }></span>
-                    <a className="main">
+                    <a className="main" onClick={() => {
+                        history.push({
+                            pathname:"/productInf/" + item._id
+                        })
+                    }}> 
                         <dt>
                             <img src={item.imageUrl} />
                         </dt>

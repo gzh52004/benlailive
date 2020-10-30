@@ -18,11 +18,12 @@ const memu = [
     { id: '5f9536aa6899df20dcd6833e', title: '酒饮', },
     { id: '5f9536ff3d483f20a43d6348', title: '厨具', },
 ]
-function Home() {
+function Home(props) {
 
 
     return (
         <div className='home'>
+            
             <section className="container">
                 <div >
                     <div className="index-top" style={{ position: "fixed", top: 0 }}>
