@@ -3,13 +3,8 @@ import { useHistory } from 'react-router-dom'
 
 import { MyContext } from '../../store/store'
 import request from '../../utils/request'
-<<<<<<< HEAD
-// import '../../assets/public/common.css'
-// import './index.scss'
-=======
 import '../../assets/public/common.css'
 import './index.scss'
->>>>>>> xhl
 
 
 function GoodSelect(props) {
