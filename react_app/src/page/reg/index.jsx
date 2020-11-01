@@ -1,12 +1,13 @@
 import React,{useState} from 'react'
 import CryptoJS from 'crypto-js';console.log('CryptoJS',CryptoJS)
-import './reg.scss'
-import {NavLink} from 'react-router-dom'
+import {NavLink,useHistory} from 'react-router-dom'
 import {Button,Icon} from 'antd-mobile';
 import pic1 from './pic1.png'
 import request from '../../component/request'
+import './reg.scss'
 
 function Reg(props) {
+    const history = useHistory()
     const [dis4,changeType2] = useState("none")
     const [dis5,changeMsg] = useState("")
     const checkInput = async function(){
@@ -63,7 +64,9 @@ function Reg(props) {
     }
     return (
         <div className="reg">
-            <div className="return"><NavLink to="/home"><Icon type="left"/></NavLink></div>
+            <div className="return"><Icon onClick={()=>{
+                history.goBack(-1)
+            }} type="left"/></div>
             <div className="content">
 
             <img className="pic1" src={pic1} alt=""></img>   

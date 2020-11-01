@@ -20,6 +20,21 @@
         background-size: cover;
         background: url(./QQ图片20200907200529.jpg);
     }
+    .exit{
+        background:url(//image.benlailife.com/static/images/mycenter/signout_107716b4.png) -50% 50% no-repeat;
+        width: vw(140);
+        background-size: 70%;
+        height: vw(88);
+        float:right;
+        // background-color:transparent;
+        font-size: vw(36);
+        line-height: vw(88);
+        // font-weight: bold;
+        text-align: right;
+        padding-right:vw(10);
+        border:none !important;
+        position: relative;
+        }
     .head-user{
        
         width: vw(740.4);

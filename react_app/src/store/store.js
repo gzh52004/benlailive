@@ -28,7 +28,6 @@ const reducer = function(state,action) {
                 }
                 setItem(key2,state.cold_product)
                 return state
-                
             } else{
                 action.item.ischeck = false;
                 action.item.num = 1;

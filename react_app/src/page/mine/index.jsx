@@ -1,11 +1,30 @@
 import {withAuth} from '../../component/hoc'
 import React from 'react'
 import './mine.scss'
-function Mine() {
+import { Modal} from 'antd-mobile';
+const alert = Modal.alert;
+
+function Mine(props) {
     const msg = localStorage.getItem("INFO")
     return (
         <div className="mine">
             <div className="head">
+            <a className="exit"
+      onClick={() =>
+        alert('','您确定要退出登录吗', [
+          { text: '取消', onPress: () => console.log('cancel') },
+          { text: '确定', onPress: () => {localStorage.clear(),
+          props.history.push({
+            pathname: '/login',
+            // state: { name: user.username }
+        })
+        },
+      }
+        ])
+      }
+    >
+      退出
+    </a>
             <div className="head-user">
                 <ol className="head-ol1">
                     <a className="pic1"><img className="pic1-1" src="https://image8.benlailife.com/images/avatar.png"></img></a>
