@@ -91,4 +91,5 @@ function Cart() {
        </>
     )
 }
+// Cart = withAuth(Cart)
 export default Cart

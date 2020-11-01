@@ -16,6 +16,7 @@ const Home = lazy(() => import('./page/home'))
 const Cart = lazy(() => import('./page/cart'))
 const List = lazy(() => import('./page/list'))
 const Login = lazy(() => import('./page/login'))
+const Reg = lazy(() => import('./page/reg'))
 const Mine = lazy(() => import('./page/mine'))
 const Newcomer = lazy(() => import('./page/newcomer'))
 const productInf = lazy(() => import('./page/productInf'))
@@ -39,6 +40,7 @@ function App(props) {
                     <Route path="/cart" component={Cart} />
                     <Route path="/mine" component={Mine} />
                     <Route path="/login" component={Login} />
+                    <Route path="/reg" component={Reg} />
                     <Route path="/notfound" render={() => <div><h1>找不到该页面</h1></div>} />
                     <Redirect from='/' to="/home" exact />
                     <Redirect to="/notfound" />
@@ -47,5 +49,7 @@ function App(props) {
         </div>
     )
 }
+
+
 App = withRouter(App)
 export default App

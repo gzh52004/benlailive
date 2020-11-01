@@ -1,0 +1,160 @@
+@function vw($n) {
+  
+    @return ($n * 100 / 750) + vw;
+  }
+  p{
+      padding: 0;
+      margin: 0;
+  }
+.head{
+    height: vw(384);
+    position: relative;
+    &:before{
+        content: "";
+        display: block;
+        position: absolute;
+        height: vw(260);
+        width: 100%;
+        top: 0;
+        left: 0;
+        background-size: cover;
+        background: url(./QQ图片20200907200529.jpg);
+    }
+    .exit{
+        background:url(//image.benlailife.com/static/images/mycenter/signout_107716b4.png) -50% 50% no-repeat;
+        width: vw(140);
+        background-size: 70%;
+        height: vw(88);
+        float:right;
+        // background-color:transparent;
+        font-size: vw(36);
+        line-height: vw(88);
+        // font-weight: bold;
+        text-align: right;
+        padding-right:vw(10);
+        border:none !important;
+        position: relative;
+        }
+    .head-user{
+       
+        width: vw(740.4);
+        height: vw(296);
+        padding-top: vw(88);
+        padding-left:vw(5);
+        padding-right:vw(5);
+        .head-ol1{ 
+            margin-top:vw(0);
+            float: left;
+            width: vw(730.4);
+            height: vw(136);
+            padding: 0 vw(35);
+            box-sizing: border-box;
+            position: relative;
+            z-index: 0;
+            position: absolute;
+            .pic1{
+                position: absolute;
+    z-index: 10;
+    top: vw(-10);
+    left: vw(35);
+    width: vw(100);
+    height: vw(100);
+    padding: vw(2);
+    background-color: #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    .pic1-1{
+        width: vw(100);
+        height: vw(100);
+        border-radius: 50%;
+    }   
+}
+    .head-ol1-a2{
+        float: left;
+    width: 100%;
+    padding: 0 0 0 vw(130);
+    box-sizing: border-box;
+    height: vw(134);
+    .head-ol1-a2-p{
+        margin-top: vw(10);
+        float: left;
+        color:white;
+        font-size:vw(32);
+        font-weight: bolder;
+    }
+    }
+            }
+        .head-ul1{
+            width: 100%;
+            text-align: center;
+            background-color: yellow;
+            margin-top:vw(176);
+            padding-left:0 ;
+            font{
+                font-size: vw(24);
+                height: vw(60);
+                color: #999;
+            }
+            a{
+                height: vw(30);
+                line-height: vw(6);
+            }
+            .head-ul1-li1{
+                align-items: flex-start;
+                flex-direction: column;
+                margin:vw(-40) vw(5);
+                padding:vw(20) 0 vw(20) vw(20) ;
+                float: left;
+                width: vw(335.2);
+                height: vw(120);
+                background-color: white;
+                border-radius:vw(8);
+                display: flex;
+                position: relative;
+                box-shadow: 0 vw(8) vw(8) 0 rgba(138,198,0,.1)
+            }
+            .head-ul1-li2{
+                align-items: flex-start;
+                flex-direction: column;
+                display: block;
+                border-radius:vw(8);
+                margin:vw(-40) vw(5);
+                padding:vw(20) 0 vw(20) vw(20);
+                float: right;
+                width: vw(335.2);
+                height: vw(120);
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                box-shadow: 0 vw(8) vw(8) 0 rgba(138,198,0,.1)
+            }
+        } 
+        }
+    }
+
+.content{
+    padding:vw(20) vw(20) 0 vw(20);
+    .order{
+        .order-head{
+            p{
+                float: left;
+                font-size:vw(32) ;
+                color: #000;
+                padding:vw(20) 0;
+                line-height: vw(44);
+                padding-left: vw(20);
+                font-weight: bold;
+            }
+            a{
+                float: right;
+                color:#999;
+                font-size:vw(26);
+                line-height: vw(44);
+                padding-top:vw(20);
+                padding-right:vw(10)
+            }
+        }
+    }
+
+}

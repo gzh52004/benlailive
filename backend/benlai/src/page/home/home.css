@@ -9,10 +9,8 @@
 .home .site-layout-background .title .right button {
   margin: 0 10px;
   line-height: 16px;
-  background-color: pink;
   padding: 10px;
   border: 0;
-  color: #578552;
 }
 
 .home .site-layout-background table {
@@ -64,8 +62,6 @@
 .home .site-layout-background table tbody tr th button {
   margin: 0 10px;
   line-height: 16px;
-  background-color: pink;
   padding: 10px;
   border: 0;
-  color: #578552;
 }
