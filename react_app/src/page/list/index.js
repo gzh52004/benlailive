@@ -4,6 +4,7 @@ import { Redirect, Route, } from 'react-router-dom'
 import Request from '../../utils/GetHomeCategory'
 import axios from 'axios'
 
+import '../../assets/public/common.css'
 import './list.scss'
 const memu = [
     { id: '5f94598c108e4b4264d0f927', title: '镇店之宝', },

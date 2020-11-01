@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useCallback,useContext} from 'react'
 import {useHistory}  from 'react-router-dom'
-
+import { Toast,Icon} from 'antd-mobile'
 import {MyContext} from '../../store/store'
 import request  from '../../utils/request'
 import '../../assets/public/common.css'
@@ -14,9 +14,9 @@ function GoodSelect(props) {
     const history = useHistory()
     useEffect(() =>{
         (async () => {
-            let num =parseInt(( Math.random() * 15)+1)
+            let num =parseInt(( Math.random() * 30)+1)
             let result =  await request.get("/good/selectGood",{params:{
-                page:num,
+                 page:num,
                  pageSize:20
              }})
             // 
@@ -26,8 +26,15 @@ function GoodSelect(props) {
          })()
     },[]) ;
     const add_cart = useCallback((item) => {
-        dispatch({type:"add_to_cart",item})
-    },[state])
+        if(state.cold_product.filter(item1 => item1.productSysNo === item.productSysNo).length || state.hot_product.filter(item1 => item1.productSysNo === item.productSysNo).length  ) {
+            Toast.fail('商品已存在购物车！', 1);
+            return
+        } else {
+            dispatch({type:"add_to_cart",item})
+            Toast.success('加入购物车成功', 1);
+        }
+       
+    })
     return (
         
         <div className="good_Select" style={props.del ? null :{ display:"none"}}>

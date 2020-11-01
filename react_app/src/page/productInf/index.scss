@@ -1,0 +1,117 @@
+@import '../../assets/public/vw.scss';
+
+img {
+    width: 100%;
+    height: vw(750.4);
+}
+
+.head {
+    position: fixed;
+}
+
+.infomation {
+
+    box-shadow: 0 vw(-8) vw(8) 0 rgba(0, 0, 0, .08);
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    box-sizing: border-box;
+    z-index: 5;
+    position: relative;
+    flex-direction: column;
+
+
+
+    .price {
+        padding-left: vw(20);
+        padding-top: vw(10);
+        width: 100%;
+        height: vw(82);
+        display: flex;
+        margin-bottom: vw(15);
+
+        p:nth-of-type(1) {
+
+            color: #ff6900;
+            line-height: vw(82);
+
+            span {
+                font-family: 黑体;
+                font-size: vw(56);
+            }
+        }
+
+        p:nth-of-type(2) {
+            font-size: vw(24);
+            color: #999;
+            text-decoration: line-through;
+            height: vw(24);
+            line-height: vw(24);
+            margin-left: vw(10);
+            padding-top: vw(38);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: vw(20);
+            height: vw(32);
+            line-height: vw(32);
+            color: #ff6900;
+            background-color: #fff4eb;
+            border: 1px solid #ffdfc7;
+            width: vw(70);
+            text-align: center;
+            margin-left: vw(10);
+            margin-top: vw(30);
+            border-radius: vw(4);
+        }
+    }
+
+    .name {
+        width: vw(710);
+        font-size: vw(36);
+        font-weight: 700;
+        font-family: 黑体;
+        margin: 0 auto;
+        margin-bottom: vw(20);
+    }
+
+    .text {
+        font-size: vw(28);
+        width: vw(710);
+        margin: 0 auto;
+        color: #999;
+        font-family: 黑体;
+    }
+
+    .white_space {
+        height: vw(20);
+        width: 100%;
+    }
+}
+
+.join {
+    width: 100%;
+    height: vw(100);
+    background-color: #fff;
+    display: flex;
+    flex-direction: row-reverse;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 20;
+
+    div {
+        height: 100%;
+        width: vw(510);
+        background-image: linear-gradient(90deg, #ff9600 0, #FF6900 100%);
+        text-align: center;
+        line-height: vw(100);
+        font-size: vw(32);
+        font-family: 黑体;
+        color: #fff;
+
+    }
+
+}

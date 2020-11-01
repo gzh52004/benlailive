@@ -10,7 +10,9 @@ const initState = {
     totalPrice:0,
     postPrice_hot:99.00,
     postPrice_cold:99.00,
-    allcheck:false
+    allcheck:false,
+    check_hot:false,
+    check_cold:false
 }
 
 
@@ -18,16 +20,20 @@ const reducer = function(state,action) {
     switch (action.type) {
         // {type:'add_to_cart',goods}
         
-        case 'add_to_cart':        
-            if(action.item.promotionsTags.filter(item => item === "冷链配")) {
-                action.item.ischeck = false
-                action.item.num = 1;
-                state = {
-                    ...state,
-                    cold_product: [ ...state.cold_product,action.item]
-                }
-                setItem(key2,state.cold_product)
-                return state
+        case 'add_to_cart': 
+            if(action.item.promotionsTags.filter(item => item === "冷链配").length) {
+               
+                    action.item.ischeck = false
+                    action.item.num = 1;
+                    state = {
+                        ...state,
+                        cold_product: [ ...state.cold_product,action.item]
+                    }
+                    setItem(key2,state.cold_product)
+              
+                    return state
+                
+                
                 
             } else{
                 action.item.ischeck = false;
@@ -41,7 +47,7 @@ const reducer = function(state,action) {
             }
         case   "product_select":
 
-            if(action.item.promotionsTags.filter(item => item === "冷链配")) {
+            if(action.item.promotionsTags.filter(item => item === "冷链配").length) {
 
              
                 state = {
@@ -68,7 +74,7 @@ const reducer = function(state,action) {
                 return  state
             }
         case "prev_num":
-            if(action.item.promotionsTags.filter(item => item === "冷链配")) {
+            if(action.item.promotionsTags.filter(item => item === "冷链配").length) {
                 state = {
                     ...state,
                     cold_product:state.cold_product.map(item => {if(item.productSysNo === action.item.productSysNo){
@@ -101,7 +107,7 @@ const reducer = function(state,action) {
                 return  state
             }
         case "inc_num":
-        if(action.item.promotionsTags.filter(item => item === "冷链配")) {
+        if(action.item.promotionsTags.filter(item => item === "冷链配").length) {
             state = {
                 ...state,
                 cold_product:state.cold_product.map(item => {if(item.productSysNo === action.item.productSysNo){
@@ -136,7 +142,7 @@ const reducer = function(state,action) {
         }
         case "change_num":
             
-        if(action.payload.item.promotionsTags.filter(item => item === "冷链配")) {
+        if(action.payload.item.promotionsTags.filter(item => item === "冷链配").length) {
             state = {
                 ...state,
                 cold_product:state.cold_product.map(item => {if(item.productSysNo === action.payload.item.productSysNo){
@@ -151,7 +157,6 @@ const reducer = function(state,action) {
                 })
             }
             setItem(key2,state.cold_product)
-          
             return state
             
         } else{
@@ -195,7 +200,7 @@ const reducer = function(state,action) {
             }
             return {
                 ...state,
-                totalPrice:price1 + price2,
+                totalPrice:price1*1 + price2*1,
                 postPrice_hot:price4,
                 postPrice_cold:price3
             }
@@ -213,10 +218,12 @@ const reducer = function(state,action) {
             let cold = true;
             let hot = true;
             if(state.cold_product.length) {
-                cold = state.cold_product.every(item => item.ischeck == true)
+                cold = state.cold_product.every(item => item.ischeck == true);
+                state.check_cold = cold ;
             }
             if(state.hot_product.length) {
-                hot = state.hot_product.every(item => item.ischeck == true)
+                hot = state.hot_product.every(item => item.ischeck == true);
+                state.check_hot = hot;
             }
             return {
                 ...state,
@@ -234,13 +241,41 @@ const reducer = function(state,action) {
             setItem(key1,state.hot_product)
             return state
         case 'allSelect':
-            state.cold_product.forEach(item => item.ischeck = action.allcheck)
-            state.cold_product.forEach(item=> {item.ischeck = action.allcheck})
-            
+
+              state.cold_product.map(item => item.ischeck = action.allcheck);
+            // console.log(cold1)
+
+            state.hot_product.forEach(item=> item.ischeck = action.allcheck)
+           
             return {
                 ...state,
-                allcheck:action.allcheck
+                allcheck:action.allcheck,
+                check_cold:action.allcheck,
+                check_hot:action.allcheck
             }
+        case "select_hot":
+
+            
+                state.hot_product.forEach(item => item.ischeck = !state.check_hot)
+                state.allcheck = state.check_cold && !state.check_hot
+                return {
+                    ...state,
+                    check_hot:!state.check_hot,
+                    
+                }
+            
+        case "select_cold":
+            
+                state.cold_product.forEach(item => item.ischeck = !state.check_cold)
+                state.allcheck= !state.check_cold && state.check_hot
+                return {
+                    ...state,
+                    check_cold:!state.check_cold,
+                   
+                }
+            
+            
+            
         default:
             throw new Error('error');
     }

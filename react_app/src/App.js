@@ -25,8 +25,11 @@ function App(props) {
     return (
         <div>
             {
-                props.location.pathname == '/newcomer' || props.location.pathname == '/cart' || props.location.pathname == '/login' ? null : <Nav props={props} />
+              
+               props.location.pathname.split('/')[1] == 'productInf' || props.location.pathname == '/newcomer' || props.location.pathname == '/cart' || props.location.pathname == '/login' ? null : <Nav props={props} />
+            
             }
+            
             <Suspense fallback={<div>loading...</div>}>
                 <Switch>
                     <Route path="/productInf/:_id" component={productInf} />

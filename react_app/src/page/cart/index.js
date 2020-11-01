@@ -23,8 +23,13 @@ function Cart() {
     useEffect(function() {
         dispatch({type:'math_price'})
     },[])
+    // useEffect(function() {
+    //     dispatch({type:'math_price'})
+    // },[state.totalPrice])
     const checked = useCallback((allcheck)=>{
+        
         dispatch({type:"allSelect",allcheck})
+        dispatch({type:'math_price'}) 
     })
     const sure_Del = useCallback(() => {
         dispatch({type:"del_product"})
@@ -58,11 +63,10 @@ function Cart() {
        
        <footer>
        <div className="allcheck">
-       <Checkbox key={state.allcheck} checked={state.allcheck} onClick={()=> {
-        
-
-           checked(!state.allcheck)
-       }}>
+       <Checkbox  checked={state.allcheck} onClick={
+              
+           checked.bind(null,!state.allcheck)
+       }>
        </Checkbox>
        <span>全选</span>
        </div>
@@ -76,7 +80,7 @@ function Cart() {
                                       { text: '确定', onPress: () => {
                                          
                                           sure_Del();
-                                          let allcheck = false
+                                          
                                           checked(false);
                                         } },
                                     ])}>删除</a>:<a >

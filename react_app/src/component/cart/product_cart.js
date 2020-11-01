@@ -36,12 +36,27 @@ function ProductCart () {
     })
     const controlAll = useCallback(() =>{
         dispatch({type:"checkAll"})
+        
+    })
+    const coldCheck = useCallback(() => {
+        // console.log(name)
+        dispatch({type:"select_cold"})
+    })
+    const hotCheck = useCallback(() => {
+        // console.log(name)
+        dispatch({type:"select_hot"})
     })
     return (
        <div>
-           { state.cold_product.length || state.hot_product.length ?  (state.cold_product.length ?<div className="have">
+           { state.cold_product.length || state.hot_product.length ?   (() =>{
+               let data = null
+               let data1 = null
+               if(state.cold_product.length) {
+                 data = <div className="have">
                 <div className="tit">
-               <div><Checkbox></Checkbox>冷链配</div>
+               <div><Checkbox checked={state.check_cold} onClick={() => {coldCheck()
+                  dispatch({type:'math_price'})
+            }}></Checkbox>冷链配</div>
     {state.postPrice_cold > 0 ? <p>还差{state.postPrice_cold ? state.postPrice_cold.toFixed(2): 99.00}元包邮<a>去凑单</a></p> : <p>已包邮</p>}
                 </div>
                 <ul className='card'>
@@ -81,15 +96,17 @@ function ProductCart () {
                     }
                 </ul>
                 <div className="white_space2"></div>
-            </div> : null  
-            (state.hot_product.length ? <div className="have">
+            </div>
+               }
+               if(state.hot_product.length) {
+                data1 =  <div className="have">
                 <div className="tit">
-               <div><Checkbox></Checkbox>常温配</div>
+               <div><Checkbox checked={state.check_hot} onClick={ () => {hotCheck(); dispatch({type:'math_price'})}}></Checkbox>常温配</div>
     {state.postPrice_hot > 0 ? <p>还差{state.postPrice_hot ? state.postPrice_hot.toFixed(2): 99.00}元包邮<a>去凑单</a></p> : <p>已包邮</p>}
                 </div>
                 <ul className='card'>
                     {
-                        state.hot_product.length.map((item) => 
+                        state.hot_product.map((item) => 
                         <li key={item._id}>
                     <Checkbox checked={item.ischeck} onClick={() => {
                         select(item),
@@ -124,7 +141,10 @@ function ProductCart () {
                     }
                 </ul>
                 <div className="white_space2"></div>
-            </div> : null) ) : <div className="none">
+            </div>
+              }
+               return (<>{data} {data1}</>);
+           })()  : <div className="none">
                 <p className="title">购物车里还没有好吃的，您可以</p>
                 <a onClick={()=> {
                     history.push('/home')
