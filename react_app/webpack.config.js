@@ -12,9 +12,9 @@ module.exports = {
         //默认扩展名
         extensions: ['.js', '.jsx'],
         //路径别名
-        // alias: {
-        //     '@': path.resolve('./src')
-        // }
+        alias: {
+            '@': path.resolve('./src')
+        }
     },
     module: {
         rules: [
