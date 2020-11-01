@@ -22,7 +22,49 @@ export const homedata = async (params, config = {}) => {
     })
     return data
 }
+
+//根据id查询数据
+export const searchdataID = async (params, config = {}) => {
+    // console.log(params, config)
+    let { data } = await com.get('/good/selectGood', {
+        ...config,
+        params
+    })
+    return data
+}
+//查询所有商品数据
+export const goodsdata = async (params, config = {}) => {
+    // console.log(params, config)
+    let { data } = await com.get('/good/selectGood', {
+        ...config,
+        params
+    })
+    return data
+}
+
+//根据价格排序
+export const searchprice = async (params, config = {}) => {
+    // console.log(params, config)
+    let { data } = await com.get('/home/Gethomepage', {
+        ...config,
+        params
+    })
+    return data
+}
+//删除商品
+export const deleteGoods = async (params, config = {}) => {
+    // console.log(params, config)
+    let { data } = await com.delete('/good/delGood', {
+        ...config,
+        params
+    })
+    return data
+}
 export default {
     login,
-    homedata
+    homedata,
+    searchdataID,
+    searchprice,
+    goodsdata,
+    deleteGoods
 }

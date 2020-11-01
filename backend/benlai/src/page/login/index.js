@@ -4,7 +4,7 @@ import { Form, Input, Button, Checkbox, message } from 'antd';
 
 
 import './login.scss'
-import { login } from '../utils/api'
+import { login } from '../../utils/api'
 // import axios from 'axios'
 
 
