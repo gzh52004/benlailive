@@ -27,7 +27,7 @@ function App(props) {
         <div>
             {
               
-               props.location.pathname.split('/')[1] == 'productInf' || props.location.pathname == '/newcomer' || props.location.pathname == '/cart' || props.location.pathname == '/login' ? null : <Nav props={props} />
+               props.location.pathname.split('/')[1] == 'productInf' || props.location.pathname == '/newcomer' || props.location.pathname == '/cart' || props.location.pathname == '/login' || props.location.pathname == '/reg'? null : <Nav props={props} />
             
             }
             

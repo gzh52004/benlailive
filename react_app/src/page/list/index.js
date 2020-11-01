@@ -27,15 +27,15 @@ function List(props) {
     const [id, changeId] = useState(memu[0].id)
     const [data, changeData] = useState({})
     const [currentID, changecurrentID] = useState(memu[0].id)//高亮
-    var CancelToken = axios.CancelToken
+    // var CancelToken = axios.CancelToken
     var cancel
     useEffect(() => {
 
         Request.get('/classify/select', {
-            cancelToken: new CancelToken(function executor(c) {
-                // An executor function receives a cancel function as a parameter
-                cancel = c;
-            }),
+            // cancelToken: new CancelToken(function executor(c) {
+            //     // An executor function receives a cancel function as a parameter
+            //     cancel = c;
+            // }),
             params: {
                 findQuery: { _id: id }
             }
@@ -46,10 +46,10 @@ function List(props) {
             }
 
         })
-        return function () {
-            cancel('list取消请求');
+        // return function () {
+        //     cancel('list取消请求');
 
-        }
+        // }
     }, [id])
     useLayoutEffect(() => {
         // console.log(props.location.pathname.slice(6));

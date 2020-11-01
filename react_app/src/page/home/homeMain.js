@@ -9,14 +9,14 @@ function Homemain(props) {
     const [datamap, changeDatamap] = useState([])//模版图数据
     const [datacart, changeDatacart] = useState([])//页面小购物车数据
     const [dataID, changes] = useState(props.location.pathname.slice(11))
-    var source = axios.CancelToken.source()
+    // var source = axios.CancelToken.source()
     useEffect(() => {
 
         (async () => {
             changes(props.location.pathname.slice(11))//获取id
             // console.log('dataID', dataID);
             let { data: { msg } } = await axios.get('http://47.115.142.170:60005/home/Gethomepage', {
-                cancelToken: source.token,
+                // cancelToken: source.token,
                 params: {
                     findQuery: { _id: dataID }
                 }
@@ -35,13 +35,13 @@ function Homemain(props) {
             }
         })()
 
-        return function () {
-            source.cancel('组件卸载,取消请求');
+        // return function () {
+        //     source.cancel('组件卸载,取消请求');
 
-            // (state, callback) => {
-            //     return
-            // }
-        }
+        //     // (state, callback) => {
+        //     //     return
+        //     // }
+        // }
     }, [])
 
     // console.log('datalist', databanner, datalist, datamap, datacart);

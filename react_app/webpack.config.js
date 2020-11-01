@@ -6,7 +6,9 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, './pbulic'),
         port: 2001,
-        open: true
+        open: true,
+        compress:true,
+        host:"0.0.0.0"
     },
     resolve: {
         //默认扩展名

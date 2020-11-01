@@ -89,7 +89,7 @@ function Home(props) {
                 console.log(res);
                 let arr = []
                 if (res.code == 2004) {
-
+                    console.log(res)
                     res.msg.list.forEach(item => {
                         let obj = {}
                         obj.product = item;

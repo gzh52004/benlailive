@@ -257,7 +257,12 @@ const reducer = function(state,action) {
 
             
                 state.hot_product.forEach(item => item.ischeck = !state.check_hot)
-                state.allcheck = state.check_cold && !state.check_hot
+                if(state.cold_product.length) {
+                    state.allcheck = state.check_cold && !state.check_hot
+                } else {
+                    state.allcheck = !state.check_hot
+                }
+                
                 return {
                     ...state,
                     check_hot:!state.check_hot,
@@ -267,7 +272,11 @@ const reducer = function(state,action) {
         case "select_cold":
             
                 state.cold_product.forEach(item => item.ischeck = !state.check_cold)
+                if(state.hot_product.length) {
                 state.allcheck= !state.check_cold && state.check_hot
+                } else {
+                    state.allcheck = !state.check_cold
+                }
                 return {
                     ...state,
                     check_cold:!state.check_cold,
