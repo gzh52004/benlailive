@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 const com = axios.create({
     baseURL: 'http://47.115.142.170:60005'
 });
@@ -60,11 +61,31 @@ export const deleteGoods = async (params, config = {}) => {
     })
     return data
 }
+//添加商品
+export const addGoods = async (formData) => {
+    // console.log(params, config)
+    let { data } = await com.post('/good/newGood',
+        formData
+        , { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+    return data
+}
+
+//查询所有用户信息
+export const userdata = async (params, config = {}) => {
+    // console.log(params, config)
+    let { data } = await com.get('/user/allUser', {
+        ...config,
+        params
+    })
+    return data
+}
 export default {
     login,
     homedata,
     searchdataID,
     searchprice,
     goodsdata,
-    deleteGoods
+    deleteGoods,
+    addGoods,
+    userdata
 }

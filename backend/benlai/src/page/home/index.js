@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState, useLayoutEffect, useRef } from 'react'
 import { Layout, Menu, Breadcrumb, Button, Dropdown, message, Input, Pagination } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined, DownOutlined, HomeOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
 import 'antd/dist/antd.css'
-
 import './home.scss'
 import Api from '../../utils/api'
+import axios from 'axios'
 import { Redirect, Route } from 'react-router-dom';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -40,17 +41,19 @@ function Home(props) {
     const [alldata, changealldata] = useState([])//渲染到页面的数据
     const [cpment, changecpment] = useState(1)//切换组件
     //goods
+    const [allgoods, changeallgoods] = useState([])
     const [goodsDatas, changegoods] = useState([])
     const [page, changepage] = useState(1)
     const [pageSize, changepageSize] = useState(8)
     const [goodsid, changegoodsid] = useState('');//goodsID
-
+    //user
+    const [allusers, changeallusers] = useState([])
     //获取用户名
     useEffect(() => {
         (async () => {
             // console.log(JSON.parse(localStorage.getItem('name')));
             changename(JSON.parse(localStorage.getItem('name')))
-
+            console.log('store=', props);
             console.log(props.location.pathname.slice(11));
             // changeid(props.location.pathname.slice(11))
             let data = await Api.homedata({
@@ -79,9 +82,9 @@ function Home(props) {
     //模糊查询
     const search = useCallback(() => {
         // console.log('search', inputid, inputshangpin);
-        if (inputshangpin.trim() && !inputid.trim()) {
+        if (inputshangpin && !inputid) {
             Api.searchdataID({
-                findQuery: { productName: inputshangpin.trim() }
+                findQuery: { productName: inputshangpin }
             }).then(res => {
                 console.log(res);
                 let arr = []
@@ -108,7 +111,7 @@ function Home(props) {
             })
         } else {
             Api.searchdataID({
-                findQuery: { productSysNo: inputid.trim() }
+                findQuery: { productSysNo: inputid }
             }).then(res => {
                 console.log(res);
                 let arr = []
@@ -133,44 +136,77 @@ function Home(props) {
             })
         }
     }, [inputid, inputshangpin])
+    //添加商品
+    const add_good = useCallback(() => {
+
+        if (inputprice && inputid && inputshangpin) {
+            console.log(inputprice, inputid);
+            props.dispatch({ type: 'add_to_goods', goods: { id: inputid, productName: inputshangpin, price: { price: inputprice } } })
+            changegoodsid(inputid)
+            changeinputid('')//清空
+            changeinputshangpin('')//清空
+            changeinputprice('')//清空
+            inputSPref.current.focus();
+        }
+    }, [inputprice])
+    //修改商品
+    // const change_good = useCallback(() => {
+    //     if (inputprice && inputid) {
+    //         console.log(inputprice, inputid);
+    //         props.dispatch({ type: 'change_to_goods', goods: { id: inputid, price: { price: inputprice } } })
+    //         changeinputid('')//清空
+    //         changeinputshangpin('')//清空
+    //         changeinputprice('')//清空
+    //         inputidref.current.focus();
+    //     }
+    // }, [inputprice])
     //价格排序
     const priceSearch = useCallback(() => {
-        Api.searchprice({
-            findQuery: { _id: id }
-        }).then(res => {
-            console.log(res);
-            // let arr = []
-            // if (res.code == 2004) {
+        if (cpment == 2) {
+            axios.put(`http://47.115.142.170:60005/good/updateGood/5f9d0c5bb09a1e49e45bbd8e`, { productName: '666' }).then(res => {
+                console.log(res);
+            })
+        }
+        // let formdata = new FormData()
+        // let prices = JSON.stringify({ price: '666678' })
+        // formdata.append("price", prices)
+        // formdata.append("productSysNo", 88887)
+        // Api.addGoods(
+        //     formdata
+        // ).then(res => {
+        //     console.log(res);
+        //     // let arr = []
+        //     // if (res.code == 2004) {
 
-            //     res.msg.list.forEach(item => {
-            //         let obj = {}
-            //         obj.product = item;
-            //         arr.push(obj)
-            //     })
-            //     console.log(arr);
-            //     changealldata(arr)
-            // } else {
-            //     changealldata([])
-            //     message.error(`找不到对应商品`);
-            // }
+        //     //     res.msg.list.forEach(item => {
+        //     //         let obj = {}
+        //     //         obj.product = item;
+        //     //         arr.push(obj)
+        //     //     })
+        //     //     console.log(arr);
+        //     //     changealldata(arr)
+        //     // } else {
+        //     //     changealldata([])
+        //     //     message.error(`找不到对应商品`);
+        //     // }
 
-        })
+        // })
 
     })
     //获取输入id
     const iddata = useCallback((e) => {
         // console.log(e.currentTarget.value);
-        changeinputid(e.currentTarget.value)
+        changeinputid(e.currentTarget.value.trim())
     })
     //获取输入商品信息
     const shangpindata = useCallback((e) => {
         // console.log(e.currentTarget.value);
-        changeinputshangpin(e.currentTarget.value)
+        changeinputshangpin(e.currentTarget.value.trim())
     })
     //获取输入商品价格
     const pricedata = useCallback((e) => {
-        console.log(e.currentTarget.value);
-        changeinputprice(e.currentTarget.value)
+        // console.log(e.currentTarget.value);
+        changeinputprice(e.currentTarget.value.trim())
     })
     const onClick = ({ key }) => {
         if (key == 2) {
@@ -203,6 +239,14 @@ function Home(props) {
     })
     useEffect(() => {
         if (cpment == 2) {
+            Api.goodsdata().then(res => {
+                console.log(res.msg.list);
+                changeallgoods(res.msg.list)
+            })
+        }
+    }, [cpment])
+    useEffect(() => {
+        if (cpment == 2) {
             Api.goodsdata({
                 pageSize,
                 page,
@@ -215,16 +259,88 @@ function Home(props) {
         }
 
     }, [cpment, pageSize, page])
-    //删除商品
-    // useEffect(() => {
-    //     if (cpment == 2) {
-    //         Api.deleteGoods(
-    //             { _id: goodsid }
-    //         ).then(res => {
-    //             console.log(res);
-    //         })
-    //     }
-    // }, [goodsid])
+    //删除商品  删除用户
+    const delID = useCallback((deleteid) => {
+        if (cpment == 2) {
+            console.log(deleteid);
+            axios.delete(`http://47.115.142.170:60005/good/delGood/${deleteid}`).then(res => {
+                console.log(res);
+                if (res.data.code == 2002) {
+                    // console.log('删除成功');
+                    Api.goodsdata({
+                        pageSize,
+                        page,
+                    }).then(res => {
+                        console.log(res);
+                        if (res.code == 2004) {
+                            changegoods(res.msg.list)
+                        }
+                    })
+                } else {
+                    message.error(`删除失败`);
+                }
+            })
+        }
+        if (cpment == 3) {
+            console.log(deleteid);
+            axios.delete(`http://47.115.142.170:60005/user/delete/${deleteid}`).then(res => {
+                console.log(res);
+                if (res.data.code == 2002) {
+                    // console.log('删除成功');
+                    Api.goodsdata({
+                        pageSize,
+                        page,
+                    }).then(res => {
+                        console.log(res);
+                        if (res.code == 2004) {
+                            changegoods(res.msg.list)
+                        }
+                    })
+                } else {
+                    message.error(`删除失败`);
+                }
+            })
+        }
+    })
+    //修改商品 修改密码
+    const updID = useCallback((updid) => {
+        console.log(updid, inputshangpin);
+        if (inputshangpin) {
+            // changegoods(updid)
+            changeinputprice('')
+            axios.put(`http://47.115.142.170:60005/good/updateGood/${updid}`, { productName: inputshangpin }).then(res => {
+                console.log(res);
+                if (res.data.code == 2003) {
+                    Api.goodsdata({
+                        pageSize,
+                        page,
+                    }).then(res => {
+                        console.log(res);
+                        if (res.code == 2004) {
+                            changegoods(res.msg.list)
+                        }
+                    })
+                } else {
+                    message.error(`修改失败`);
+                }
+            })
+            changeinputshangpin('')
+        }
+
+    })
+    //用户管理
+    const gotoUser = useCallback(() => {
+        changecpment(3)
+        props.history.push('/home/user')
+    })
+    useEffect(() => {
+        if (cpment == 3) {
+            Api.userdata().then(res => {
+                console.log(res.msg.list);
+                changeallusers(res.msg.list)
+            })
+        }
+    }, [cpment])
     return (
 
         <div className="home">
@@ -262,9 +378,10 @@ function Home(props) {
                                 onClick={gotoGoods}
                             >
                                 <Menu.Item key="10">商品详情</Menu.Item>
-                                <Menu.Item key="8">订单管理</Menu.Item>
                             </SubMenu>
-                            <SubMenu key="sub3" icon={<UserOutlined />} title="用户信息">
+                            <SubMenu key="sub3" icon={<UserOutlined />} title="用户信息"
+                                onClick={gotoUser}
+                            >
                                 <Menu.Item key="9">会员管理</Menu.Item>
                             </SubMenu>
                         </Menu>
@@ -349,11 +466,11 @@ function Home(props) {
                                         onClick={search}
                                     >查询</Button>
                                     <Button type="primary" htmlType="submit"
-                                        onClick={search}
+                                        onClick={add_good}
                                     >添加</Button>
-                                    <Button type="primary" htmlType="submit"
-                                        onClick={search}
-                                    >修改</Button>
+                                    {/* <Button type="primary" htmlType="submit"
+                                        onClick={change_good}
+                                    >修改</Button> */}
                                 </div>
                             </div>
                             <table >
@@ -365,7 +482,7 @@ function Home(props) {
                                         <th
                                             onClick={priceSearch}
                                         >价格</th>
-                                        <th>操作</th>
+                                        <th style={{ flex: 2 }}>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -375,22 +492,68 @@ function Home(props) {
                                             <td>{item.productSysNo}</td>
                                             <td style={{ flex: 2 }}>{item.productName}</td>
                                             <td>{item.price.price}</td>
-                                            <td>
+                                            <td style={{ flex: 2 }}>
                                                 {/* <button >完成</button> */}
                                                 {/* <button>删除</button> */}
                                                 <Button type="primary" htmlType="submit"
-                                                    onClick={() => {
-                                                        console.log(item._id);
-                                                        changegoodsid(item._id)
-                                                    }}
+                                                    onClick={delID.bind(null, item._id)}
                                                 >删除</Button>
+                                                <Button type="primary" htmlType="submit"
+                                                    onClick={updID.bind(null, item._id)}
+                                                >修改</Button>
                                             </td>
                                         </tr>) : null
                                     }
 
                                 </tbody>
                             </table>
-                            <Pagination defaultCurrent={1} total={700} pageSizeOptions={[5, 8, 10, 20]} onChange={changepageFn} style={{ paddingTop: 20 }} />
+                            <Pagination defaultCurrent={1} total={allgoods.length} pageSizeOptions={[5, 8, 10, 20]} onChange={changepageFn} style={{ paddingTop: 20 }} />
+                        </Content>
+                    </Layout>
+                    <Layout style={cpment == 3 ? { padding: '0 24px 24px' } : { padding: '0 24px 24px', display: 'none' }}>
+                        <Breadcrumb style={{ margin: '16px 0' }}>
+                            <Breadcrumb.Item><h2 style={{ color: 'red' }}>用户管理</h2></Breadcrumb.Item>
+                        </Breadcrumb>
+                        <Content
+                            className="site-layout-background"
+                            style={{
+                                padding: 24,
+                                margin: 0,
+                                minHeight: 280,
+                            }}
+                        >
+
+                            <table >
+                                <thead>
+                                    <tr className="tr">
+                                        <th>序号</th>
+                                        <th>id</th>
+                                        <th >用户名</th>
+                                        <th
+                                            style={{ flex: 2 }}
+                                        >密码</th>
+                                        <th style={{ flex: 2 }}>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        allusers.length ? allusers.map((item, index) => <tr className="activetwo" key={item._id}>
+                                            <td>{index + 1}</td>
+                                            <td>{item._id}</td>
+                                            <td >{item.name}</td>
+                                            <td style={{ flex: 2 }}>{item.pwd}</td>
+                                            <td style={{ flex: 2 }}>
+                                                {/* <button >完成</button> */}
+                                                {/* <button>删除</button> */}
+                                                <Button type="primary" htmlType="submit"
+                                                    onClick={delID.bind(null, item._id)}
+                                                >删除用户</Button>
+                                            </td>
+                                        </tr>) : null
+                                    }
+
+                                </tbody>
+                            </table>
                         </Content>
                     </Layout>
                 </Layout>
@@ -401,4 +564,8 @@ function Home(props) {
     )
 }
 
+const mapStateToProps = function (state) {
+    return state
+}
+Home = connect(mapStateToProps)(Home)
 export default Home 
